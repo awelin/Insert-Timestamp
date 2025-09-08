@@ -30,6 +30,7 @@
     "type": "git",
     "url": "https://github.com/awelin/Insert-Timestamp.git"
   },
+  "license": "MIT",
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
