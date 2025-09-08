@@ -80,4 +80,4 @@ Feel free to fork and submit PRs. Suggestions for new formats or auto-insertion 
 
 ## License
 
-MIT License © Zelin Yang
+MIT License © ZelinYang21

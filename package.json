@@ -3,6 +3,7 @@
   "displayName": "insert-timestamp",
   "description": "Insert timestamps at cursor position.",
   "version": "0.0.1",
+  "publisher": "ZelinYang21",
   "engines": {
     "vscode": "^1.103.0"
   },
