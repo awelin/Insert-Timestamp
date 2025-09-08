@@ -8,9 +8,17 @@ export function activate(context: vscode.ExtensionContext) {
             return;
         }
 
+        // Current UTC time
         const now = new Date();
-        const timestamp = now.toISOString().replace('T', ' ').substring(0, 19);
 
+        // Convert to UTC+8
+        const utc8 = new Date(now.getTime() + 8 * 60 * 60 * 1000);
+
+        // Format YYYY-MM-DD HH:mm:ss
+        const pad = (n: number) => n.toString().padStart(2, '0');
+        const timestamp = `${utc8.getUTCFullYear()}-${pad(utc8.getUTCMonth() + 1)}-${pad(utc8.getUTCDate())} ${pad(utc8.getUTCHours())}:${pad(utc8.getUTCMinutes())}:${pad(utc8.getUTCSeconds())}`;
+
+        // Insert at cursor
         editor.edit(editBuilder => {
             editor.selections.forEach(selection => {
                 if (selection.isEmpty) {

@@ -1,16 +1,23 @@
 {
   "name": "insert-timestamp",
-  "displayName": "insert-timestamp",
-  "description": "Insert timestamps at cursor position.",
+  "displayName": "Insert Timestamp",
+  "description": "Quickly insert the current date and time (UTC+8) at the cursor in any editor, including Jupyter Notebook (.ipynb) cells.",
   "version": "0.0.1",
   "publisher": "ZelinYang21",
   "engines": {
-    "vscode": "^1.103.0"
+    "vscode": "^1.80.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ZelinYang21/insert-timestamp"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:insert-timestamp.insertNow"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -27,11 +34,6 @@
       }
     ]
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/awelin/Insert-Timestamp.git"
-  },
-  "license": "MIT",
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
