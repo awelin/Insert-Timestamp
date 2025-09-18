@@ -8,17 +8,29 @@ export function activate(context: vscode.ExtensionContext) {
             return;
         }
 
-        // Current UTC time
+        const config = vscode.workspace.getConfiguration('insertTimestamp');
+        const tz = config.get<string>('timezone', 'UTC+8'); // Default UTC+8
+
         const now = new Date();
+        let timestamp: string;
 
-        // Convert to UTC+8
-        const utc8 = new Date(now.getTime() + 8 * 60 * 60 * 1000);
+        if (tz.toLowerCase() === 'local') {
+            timestamp = now.toLocaleString();
+        } else {
+            // Parse UTC offset like "UTC", "UTC+8", "UTC-5"
+            const match = tz.match(/^UTC([+-]?\d+)?$/i);
+            if (match) {
+                const offset = match[1] ? parseInt(match[1], 10) : 0;
+                const utcTime = new Date(now.getTime() + offset * 60 * 60 * 1000);
+                const pad = (n: number) => n.toString().padStart(2, '0');
+                timestamp = `${utcTime.getUTCFullYear()}-${pad(utcTime.getUTCMonth() + 1)}-${pad(utcTime.getUTCDate())} ${pad(utcTime.getUTCHours())}:${pad(utcTime.getUTCMinutes())}:${pad(utcTime.getUTCSeconds())}`;
+            } else {
+                // Fallback to ISO string
+                timestamp = now.toISOString().replace('T', ' ').substring(0, 19);
+            }
+        }
 
-        // Format YYYY-MM-DD HH:mm:ss
-        const pad = (n: number) => n.toString().padStart(2, '0');
-        const timestamp = `${utc8.getUTCFullYear()}-${pad(utc8.getUTCMonth() + 1)}-${pad(utc8.getUTCDate())} ${pad(utc8.getUTCHours())}:${pad(utc8.getUTCMinutes())}:${pad(utc8.getUTCSeconds())}`;
-
-        // Insert at cursor
+        // Insert or replace timestamp at each selection
         editor.edit(editBuilder => {
             editor.selections.forEach(selection => {
                 if (selection.isEmpty) {

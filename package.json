@@ -1,11 +1,11 @@
 {
   "name": "insert-timestamp",
   "displayName": "Insert Timestamp",
-  "description": "Quickly insert the current date and time (UTC+8) at the cursor in any editor, including Jupyter Notebook (.ipynb) cells.",
-  "version": "0.0.1",
+  "description": "Quickly insert the current date and time at the cursor in any editor, including Jupyter Notebook (.ipynb) cells.",
+  "version": "0.0.3",
   "publisher": "ZelinYang21",
   "engines": {
-    "vscode": "^1.80.0"
+    "vscode": "^1.104.0"
   },
   "license": "MIT",
   "repository": {
@@ -32,7 +32,18 @@
         "key": "ctrl+shift+t",
         "when": "editorTextFocus"
       }
-    ]
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Insert Timestamp Settings",
+      "properties": {
+        "insertTimestamp.timezone": {
+          "type": "string",
+          "default": "local",
+          "description": "Set the timezone for inserted timestamps. Examples: UTC, UTC+8, UTC-5, or local."
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -43,7 +54,7 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.103.0",
+    "@types/vscode": "^1.104.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
     "@typescript-eslint/eslint-plugin": "^8.42.0",
